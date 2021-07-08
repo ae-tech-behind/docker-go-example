@@ -1,0 +1,54 @@
+docker build --tag docker-go-example . ->  El docker buildcomando crea imágenes de Docker a partir 
+                                        de Dockerfiley un "contexto". 
+                                        Un contexto de compilación es el conjunto de archivos ubicados 
+                                        en la ruta o URL especificada. 
+                                        El proceso de compilación de Docker puede acceder a cualquiera de 
+                                        los archivos ubicados en el contexto.
+
+El comando de construcción toma opcionalmente una --tag bandera. 
+Esta bandera se usa para etiquetar la imagen con un valor de cadena, 
+que es fácil de leer y reconocer para los humanos. Si no pasa un --tag, 
+Docker lo usará latest como valor predeterminado.
+
+----------------------------------------------------------------------------------------------------
+
+docker tag docker-go-example:latest docker-go-example:v1.0
+
+El tagcomando Docker crea una nueva etiqueta para la imagen. 
+No crea una nueva imagen. La etiqueta apunta a la misma imagen 
+y es solo otra forma de hacer referencia a la imagen.
+
+----------------------------------------------------------------------------------------------------
+
+docker-compose up --build     ->   Iniciemos nuestra aplicación y confirmemos 
+                                   que se está ejecutando correctamente.
+docker-compose down           ->   Para eliminar esos contenedores después de haberlos detenido
+
+----------------------------------------------------------------------------------------------------
+
+docker images  ->   Muestra todas las imagenes que tenemos en consola
+docker ps      ->   lista de contenedores
+docker ps -a   ->   veremos todos los contenedores en nuestro sistema, es decir 
+                    contenedores detenidos y contenedores en ejecución.
+docker volume list                      ->   enlista los volumenes 
+docker volume create [nombre]           ->   crea un nuevo volumen local           
+docker rmi docker-go-example:v1.0       ->   elimina la imagen que seleccionamos
+docker stop [nombre del contenedor]     ->   detiene el contenedor
+docker restart [nombre del contenedor]  ->   reinicia el contenedor
+docker rm [nombre del contenedor]       ->   elimina el/los contenedores
+
+----------------------------------------------------------------------------------------------------
+
+docker run docker-go-example  -> ejecutamos como contenedor
+
+docker run --publish 8080:8080 docker-go-example 
+->
+Para publicar un puerto para nuestro contenedor, usaremos la --publish bandera 
+( -ppara abreviar) en el comando docker run. El formato del --publish comando es 
+[host_port]:[container_port]. Entonces, si quisiéramos exponer el puerto 8080
+dentro del contenedor al puerto 3000 fuera del contenedor, 
+pasaríamos 3000:8080 a la --publish bandera.
+
+docker run -d -p 8080:8080 docker-go-example
+->
+Lo mismo de arriba pero iniciando el contenedor aparte y sin consola
