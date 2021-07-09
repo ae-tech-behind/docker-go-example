@@ -1,20 +1,37 @@
 package main
 
 import (
-	"context"
-	"database/sql"
-	"fmt"
-	"log"
 	"net/http"
 	"os"
 
-	"github.com/cenkalti/backoff/v4"
-	"github.com/cockroachdb/cockroach-go/v2/crdb"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
+
+	e := echo.New()
+
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
+
+	e.GET("/", func(c echo.Context) error {
+		return c.HTML(http.StatusOK, "Hello, Docker! <3")
+	})
+
+	e.GET("/ping", func(c echo.Context) error {
+		return c.JSON(http.StatusOK, struct{ Status string }{Status: "OK"})
+	})
+
+	httpPort := os.Getenv("HTTP_PORT")
+	if httpPort == "" {
+		httpPort = "8080"
+	}
+
+	e.Logger.Fatal(e.Start(":" + httpPort))
+}
+
+/*func main() {
 
 	e := echo.New()
 
@@ -36,9 +53,9 @@ func main() {
 		return c.JSON(http.StatusOK, struct{ Status string }{Status: "OK"})
 	})
 
-	/*e.POST("/send", func(c echo.Context) error {
+	e.POST("/send", func(c echo.Context) error {
 		return sendHandler(db, c)
-	})*/
+	})
 
 	httpPort := os.Getenv("HTTP_PORT")
 	if httpPort == "" {
@@ -137,3 +154,4 @@ func countRecords(db *sql.DB) (int, error) {
 
 	return count, nil
 }
+*/
