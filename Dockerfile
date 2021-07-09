@@ -4,7 +4,7 @@
 
 #indica la version de go que usara docker y 
 #hereda de la imgen oficial de go sus recursos
-FROM golang:1.16-alpine AS build
+FROM golang:1.16-alpine
 
 #indica a Docker que use este directorio como 
 #destino predeterminado para todos los comandos posteriores
