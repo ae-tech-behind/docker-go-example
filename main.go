@@ -28,7 +28,8 @@ func main() {
 	defer db.Close()
 
 	e.GET("/", func(c echo.Context) error {
-		return rootHandler(db, c)
+		return c.HTML(http.StatusOK, "Hello, Docker! <3")
+		//return rootHandler(db, c)
 	})
 
 	e.GET("/ping", func(c echo.Context) error {
